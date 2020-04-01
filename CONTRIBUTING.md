@@ -1,6 +1,6 @@
 # So you want to contribute to the IBM Blockchain VS Code Extension
 
-Detailed below are various instructions for getting set up with the Ibm Blockchain VS Code Extension. I've also included some tips for running the unit tests, making changes to the React app, and getting past our builds so that the fabulous PRs you deliver can be merged in that much easier. Enjoy!
+Detailed below are various instructions for getting set up with the IBM Blockchain VS Code Extension. I've also included some tips for running the unit tests, making changes to the React app, and getting past our builds so that the fabulous PRs you deliver can be merged in that much easier. Enjoy!
 
 
 ## Setting up to develop
@@ -15,25 +15,25 @@ Detailed below are various instructions for getting set up with the Ibm Blockcha
 5. To launch the development version of the extension, open the debug panel (click on the bug icon in the left sidebar), make sure the value in the dropdown at the top is "Extension", and then click the play button.
 6. Follow the instructions provided on the Pre-requisites page that appears to finish getting set up
 
-_Note: If you have grpc errors when you run the extension do a `lerna clean`, then `lerna bootstrap` and `lerna run compile`_
+_Note: If you have grpc errors when you run the extension do a `lerna clean`, then `lerna bootstrap` and `lerna run compile`. If the errors persist, check out [this issue](https://github.com/IBM-Blockchain/blockchain-vscode-extension/issues/1621) for a workaround_
 
 _Note: See [this gist](https://gist.github.com/Chaser324/ce0505fbed06b947d962) for help with setting up a forked repository_
 
 
 ## Picking up an issue
-1. Make sure to assign the issue to yourself on GitHub! You should also move your issue to the appropriate column on the ZenHub board, probably the In Progress column
+1. Make sure to assign the issue to yourself on GitHub! You should also move your issue to the appropriate column on the ZenHub board, probably the In Progress column. 
 2. Next you need to create a new branch from master and check it out so that you can start to make the changes. This is the flow that I find the easiest, but feel free to do it the way that you are most comfortable with.
     - Assuming that your master branch is up to date, go to __your fork__ of the extension repository and create a new branch for the issue that you're picking up. __You should be opening a new branch for every issue.__
     - Do `git fetch` in your terminal to see the new branch that you have created.
     - Next do `git checkout -b <branch-name> origin/<branch-name>`. This will create a branch on your local machine and sync it up with the remote branch on GitHub at the same time.
-3. After checking out a new branch, you may need to run `lerna run compile` to build the UI and the extension again.
+3. After checking out a new branch, you may need to run `lerna run compile` to build the various packages again.
 4. Once that's done and you're able to launch the extension as you would expect, you can start making your changes.
 
 
 ## Running the unit tests
 There are several packages, each with their own unit tests. To run all the unit tests apart from the extension ones run `lerna run unit`. This will also check coverage. If you want to debug the unit tests then in the debug panel choose `Unit tests` for the package you want to test and click play.
 
-To run the extension unit tests
+To run the extension unit tests:
 1. In the debug panel, change the value in the dropdown from "Extension" to "Unit Tests", and then click play. The output from the tests will appear in the VS Code debug console when the Unit Tests output is selected.
 2. You can check the code coverage by navigating to the coverage directory in the repository, and opening the `index.html` file that you find there. This file is regenerated every time you run the unit tests.
 3. Changing "Unit Tests" to "Debug Unit Tests" will let you... debug your unit tests. Be aware that running the unit tests in this way will not generate a coverage report.
@@ -43,12 +43,12 @@ To run the extension unit tests
 
 
 ## Developing the React app
-You may have noticed a directory inside `packages` called `blockchain-ui`. While the bulk of the extension lives in `blockchain-extension`, the ui directory contains the React app that is used to render several of the webviews you see within the extension. Getting set up and developing for this app is a little bit different compared to the rest of the extension.
+You may have noticed a directory inside `packages` called `blockchain-ui`. This directory contains the React app that is used to render several of the webviews you see within the extension. Getting set up and developing for this app is a little bit different compared to the rest of the extension.
 
 ### Development
-1. In order to see any changes that are made to the React app, you'll first need to run `npm lerna compile` to build them for the extension. Once that's finished, launch the extension as you would normally
+1. In order to see any changes that are made to the React app, you'll first need to run `lerna run compile` to build them for the extension. Once that's finished, launch the extension as you would normally.
 2. Building the app takes a while, which is a pain if you're only making cosmetic changes. Alternatively, you can run `npm run start` in the `blockchain-ui` directory, which will launch a development version of the app in your default browser.
-    - The app opens at `http://localhost:3000/`. To navigate to the page you want to work on, you'll need to update this path, e.g. to `http://localhost:3000/#/transaction/create`. Remember the hash between the port number and the rest of the path!
+    - The app opens at `http://localhost:3000/`. To navigate to the page you want to work on, you'll need to update this path, e.g. to `http://localhost:3000/#/home`. Remember the hash between the port number and the rest of the path!
     - Don't forget that while the app happily renders, any information that comes from the extension (smart contracts, user settings etc) will be missing. Clicking anything that tries to access that missing data, or tries to make a call to the extension, will cause the app to error.
 
 ### Tests
