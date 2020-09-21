@@ -260,8 +260,8 @@ export async function submitTransaction(evaluate: boolean, treeItem?: Instantiat
     let selectPeers: string;
 
     if (transactionObject) {
-        peerTargetNames = transactionObject.peerTargetNames;
-        peerTargetMessage = '';
+        peerTargetNames = transactionObject.peerTargetNames !== [] ? transactionObject.peerTargetNames : [];
+        peerTargetMessage = peerTargetNames.length ? ` to peers ${peerTargetNames}` : '';
     } else {
         if (channelPeerInfo.length === 0) {
             outputAdapter.log(LogType.ERROR, `No channel peers available to target`);

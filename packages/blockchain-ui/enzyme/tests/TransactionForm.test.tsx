@@ -46,7 +46,8 @@ describe('TransactionForm component', () => {
         channel: 'mychannel',
         label: 'greenContract@0.0.1',
         transactions: [transactionOne, transactionTwo],
-        namespace: 'GreenContract'
+        namespace: 'GreenContract',
+        peerNames: []
     };
 
     beforeEach(async () => {
