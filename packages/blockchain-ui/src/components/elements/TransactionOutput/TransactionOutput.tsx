@@ -9,6 +9,7 @@ interface IState {
     output: string;
 }
 
+// TODO - update to match new designs
 class TransactionOutput extends Component<IProps, IState> {
     constructor(props: Readonly<IProps>) {
         super(props);
@@ -44,7 +45,7 @@ class TransactionOutput extends Component<IProps, IState> {
             <div className='output-panel' id='output-panel'>
                 <div className='output-panel-inner'>
                     <p className='output-title'>Output for untitled transaction</p>
-                    {this.determineOutput()}
+                    {/* {this.determineOutput()} */}
                 </div>
             </div>
         );

@@ -9,13 +9,14 @@ import IPackageRegistryEntry from './interfaces/IPackageRegistryEntry';
 import Fabric2Page from './components/pages/Fabric2Page/Fabric2Page';
 import TransactionPage from './components/pages/TransactionPage/TransactionPage';
 import ISmartContract from './interfaces/ISmartContract';
+import IAssociatedTxdata from './interfaces/IAssociatedTxdata';
 
 interface AppState {
     redirectPath: string;
     extensionVersion: string;
     deployData: { channelName: string, environmentName: string, packageEntries: IPackageRegistryEntry[], workspaceNames: string[], selectedPackage: IPackageRegistryEntry | undefined, committedDefinitions: string[], environmentPeers: string[], discoveredPeers: string[], orgMap: any, orgApprovals: any };
     tutorialData: Array<{ name: string, tutorials: ITutorialObject[], tutorialFolder: string, tutorialDescription?: string }>;
-    transactionData: {gatewayName: string, smartContract: ISmartContract };
+    transactionViewData: {gatewayName: string, smartContract: ISmartContract, associatedTxdata: IAssociatedTxdata | undefined, txdataTransactions: string[] };
     transactionOutput: string;
 }
 
@@ -27,7 +28,7 @@ class App extends Component<{}, AppState> {
             extensionVersion: '',
             tutorialData: [],
             deployData: { channelName: '', environmentName: '', packageEntries: [], workspaceNames: [], selectedPackage: undefined, committedDefinitions: [], environmentPeers: [], discoveredPeers: [], orgMap: {}, orgApprovals: {} },
-            transactionData: {gatewayName: '', smartContract: {name: '', version: '', channel: '', label: '', transactions: [], namespace: ''} },
+            transactionViewData: {gatewayName: '', smartContract: {name: '', version: '', channel: '', label: '', transactions: [], namespace: ''}, associatedTxdata: undefined, txdataTransactions: [] },
             transactionOutput: ''
         };
     }
@@ -50,8 +51,8 @@ class App extends Component<{}, AppState> {
                 newState.deployData = event.data.deployData;
             }
 
-            if (event.data.transactionData) {
-                newState.transactionData = event.data.transactionData;
+            if (event.data.transactionViewData) {
+                newState.transactionViewData = event.data.transactionViewData;
             }
 
             if (event.data.transactionOutput) {
@@ -88,7 +89,7 @@ class App extends Component<{}, AppState> {
                                 <DeployPage deployData={this.state.deployData} />}>
                             </Route>
                             <Route exact path='/transaction' render={(): JSX.Element =>
-                                <TransactionPage transactionData={this.state.transactionData} transactionOutput={this.state.transactionOutput}/>}>
+                                <TransactionPage transactionViewData={this.state.transactionViewData} transactionOutput={this.state.transactionOutput}/>}>
                             </Route>
                         </div>
                     </div>

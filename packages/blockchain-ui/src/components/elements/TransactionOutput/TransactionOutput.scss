@@ -2,11 +2,8 @@
 @import '@carbon/layout/scss/_spacing';
 
 .output-panel {
-    position: fixed;
-    top: 0px;
-    height: 100%;
-    width: 55%;
     background-color: #F4F4F4;
+    height: 100%;
 
     .output-panel-inner {
         margin: $spacing-07;

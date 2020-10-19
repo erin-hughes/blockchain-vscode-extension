@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './TransactionForm.scss';
+import './TransactionManualInput.scss';
 import { Button, Dropdown, Form, FormGroup, Select, SelectItem, TextArea, TextInput } from 'carbon-components-react';
 import ITransaction from '../../../interfaces/ITransaction';
 import ISmartContract from '../../../interfaces/ISmartContract';
@@ -17,7 +17,7 @@ interface IState {
     transientData: string;
 }
 
-class TransactionForm extends Component<IProps, IState> {
+class TransactionManualInput extends Component<IProps, IState> {
     constructor(props: Readonly<IProps>) {
         super(props);
         this.state = {
@@ -110,12 +110,6 @@ class TransactionForm extends Component<IProps, IState> {
 
         return (
             <Form id='create-txn-form'>
-                <FormGroup legendText='Transaction label'>
-                    <div className='bx--row inline-row hide-label'>
-                        <TextInput id='transaction-label-input' labelText='Enter transaction label' hideLabel={true} placeholder='Enter transaction label'></TextInput>
-                        <Button id='save-txn-button' size='field'>Save</Button>
-                    </div>
-                </FormGroup>
                 <FormGroup legendText='Transaction name'>
                     <Dropdown
                         ariaLabel='dropdown'
@@ -127,7 +121,7 @@ class TransactionForm extends Component<IProps, IState> {
                         type='default'
                         selectedItem={this.state.activeTransaction ? this.state.activeTransaction.name : 'Select the transaction name'}
                         onChange={this.generateTransactionArguments}
-                    />
+                        />
                 </FormGroup>
                 <FormGroup legendText='Peer targeting' id='target-peer-input'>
                     <Select id='peers-select' labelText='Peers' className='select-width hide-label'>
@@ -152,4 +146,4 @@ class TransactionForm extends Component<IProps, IState> {
     }
 }
 
-export default TransactionForm;
+export default TransactionManualInput;

@@ -56,7 +56,7 @@ export async function openTransactionView(treeItem?: InstantiatedTreeItem): Prom
     const createChannelsResult: {channelMap: Map<string, Array<string>>, v1channels: Array<string>} = await connection.createChannelMap();
     const channelMap: Map<string, Array<string>> = createChannelsResult.channelMap;
 
-    let selectedSmartContract: {label: string, channel: string};
+    let selectedSmartContract: { name: string, version: string, channel: string, label: string, transactions: any[], namespace: string };
 
     let metadataObj: any = {
         contracts: {
@@ -92,9 +92,17 @@ export async function openTransactionView(treeItem?: InstantiatedTreeItem): Prom
         }
     }
 
-    const appState: {gatewayName: string, smartContract: {label: string, channel: string}} = {
+    let associatedTxdata: {chaincodeName: string, channelName: string, transactionDataPath: string};
+    if (gatewayRegistryEntry.transactionDataDirectories) {
+        associatedTxdata = gatewayRegistryEntry.transactionDataDirectories.find((item: {chaincodeName: string, channelName: string, transactionDataPath: string}) => {
+            return item.chaincodeName === selectedSmartContract.name && item.channelName === selectedSmartContract.channel;
+        });
+    }
+
+    const appState: {gatewayName: string, smartContract: { name: string, version: string, channel: string, label: string, transactions: any[], namespace: string }, associatedTxdata: { chaincodeName: string, channelName: string, transactionDataPath: string }} = {
         gatewayName,
-        smartContract: selectedSmartContract
+        smartContract: selectedSmartContract,
+        associatedTxdata
     };
 
     const context: vscode.ExtensionContext = GlobalState.getExtensionContext();
